@@ -1,0 +1,19 @@
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store
+*.aux
+*.log
+*.nav
+*.snm
+*.toc
+*.out
+*.vrb
+*.synctex.gz
+
+# Optional local reading copy; the Markdown script is retained.
+/presentation/Speaker_Notes.pdf
+
+# Keep personal delivery notes local.
+/presentation/Speaker_Notes.md
+/presentation/source/speaker_template.md
