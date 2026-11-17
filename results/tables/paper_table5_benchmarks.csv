@@ -1,0 +1,4 @@
+"factor","combo_SR","original_SR","delta_SR","combo_CER_pct","original_CER_pct","delta_CER_pct","ex_post_SR","published","paper_SR_p","paper_CER_p"
+"MKT",0.42,0.46,-0.04,1.56,1.75,-0.19,0.53,TRUE,0.64,0.83
+"SMB",0.14,0.19,-0.06,0,0.38,-0.37,0.26,TRUE,0.37,0.27
+"HML",0.38,0.43,-0.06,1.41,1.61,-0.2,0.5,TRUE,0.41,0.73

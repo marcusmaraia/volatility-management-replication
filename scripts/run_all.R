@@ -1,0 +1,40 @@
+# Run from repository root: Rscript scripts/run_all.R
+# Optional: --from-processed skips raw reconstruction using the preserved snapshot.
+options(stringsAsFactors=FALSE,scipen=7)
+if(!file.exists('R/01_prepare_data.R')) stop('Run from the repository root.')
+for(d in c('results/tables','results/paths','results/inference','results/figures','presentation/source','reports'))
+  dir.create(d,recursive=TRUE,showWarnings=FALSE)
+for(f in c('01_prepare_data','02_analysis','03_inference','04_charts','05_documents','06_checks','benchmarks'))
+  source(paste0('R/',f,'.R'))
+snapshot<-read.csv('data/processed/factors_processed.csv')
+from_processed <- '--from-processed' %in% commandArgs(trailingOnly=TRUE)
+if(from_processed) month<-snapshot else {
+  month<-prepare_data()
+  stopifnot(isTRUE(all.equal(month,snapshot,tolerance=1e-12,check.attributes=FALSE)))
+}
+hist<-month[month$ym>=192608 & month$ym<=201612,]
+t1<-run_table1(hist);t3<-run_table3(t1);t5<-run_table5(hist)
+ext<-run_extension(month)
+tests<-run_inference(t1,t3,t5,ext)
+savecsv<-function(x,path)write.csv(x,path,row.names=FALSE,na='NA')
+for(n in c('1','3','5')) {
+  x<-switch(n,'1'=t1$table,'3'=t3,'5'=t5$table)
+  savecsv(x,paste0('results/tables/table',n,'_computed.csv'))
+}
+savecsv(t5$paths,'results/paths/table5_realtime_paths.csv')
+savecsv(ext$table,'results/tables/extension_2019_2025.csv')
+savecsv(ext$paths,'results/paths/extension_paths.csv')
+savecsv(ref_t1,'results/tables/paper_table1_benchmarks.csv')
+savecsv(ref_t3,'results/tables/paper_table3_benchmarks.csv')
+savecsv(ref_t5,'results/tables/paper_table5_benchmarks.csv')
+savecsv(compare(t1$table,ref_t1,c('original_SR','managed_SR','delta_SR')),'results/tables/table1_comparison.csv')
+savecsv(compare(t3,ref_t3,c('alpha_ann_pct','alpha_t','beta','adj_R2','ex_post_SR')),'results/tables/table3_comparison.csv')
+savecsv(compare(t5$table,ref_t5,c('combo_SR','original_SR','delta_SR','combo_CER_pct','original_CER_pct','delta_CER_pct','ex_post_SR')),'results/tables/table5_comparison.csv')
+savecsv(tests$historical,'results/inference/historical_tests.csv')
+savecsv(tests$alpha,'results/inference/table3_HC0_alpha_tests.csv')
+savecsv(tests$extension,'results/inference/extension_block_bootstrap.csv')
+make_charts(t1,t3,t5,ext,tests)
+make_documents(t1,t3,t5,ext,tests)
+check_results(month,t1,t3,t5,ext,tests,from_raw=!from_processed)
+writeLines(capture.output(sessionInfo()),'reports/sessionInfo.txt')
+cat('DONE: all analysis, inference, charts, and document inputs regenerated with base R.\n')

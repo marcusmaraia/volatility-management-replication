@@ -1,0 +1,4 @@
+"factor","alpha_ann_pct","alpha_t","beta","adj_R2","ex_post_SR","published"
+"MKT",4.63,3.08,0.63,0.4,0.53,TRUE
+"SMB",-0.76,-0.87,0.63,0.4,0.25,TRUE
+"HML",1.87,1.88,0.57,0.33,0.44,TRUE

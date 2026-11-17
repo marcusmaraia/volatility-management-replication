@@ -1,0 +1,8 @@
+PASS: raw reconstruction equals preserved processed snapshot.
+PASS: continuity, lag identities, sample sizes, volatility matching.
+PASS: HC0 matrix, equivalent JK formula, DGU moment covariance.
+PASS: qualitative slide/script conclusions agree with the computed snapshot.
+PASS: recursive first/last weights use past data; caps and costs.
+PASS: extension calibration matches July 1963-December 2018.
+PASS: original proposal counts and descriptive table match at reported precision.
+LIMIT: no claim of paper-author data-vintage or source-code identity.
