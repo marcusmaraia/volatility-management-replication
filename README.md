@@ -60,7 +60,7 @@ The preserved raw archives identify the **September 2026 CRSP database vintage**
 
 ## Technology and reproduction
 
-**Base R, tested with R 4.4.2**, handles preparation, estimation, inference, checks, charts. No contributed R packages or Python installation are required. CSV and Markdown keep the results portable and readable.
+**Base R, tested with R 4.4.2**, handles preparation, estimation, inference, checks, charts. No contributed R packages are required. CSV and Markdown keep the results portable and readable.
 
 From the repository root:
 
@@ -68,7 +68,7 @@ From the repository root:
 Rscript scripts/run_all.R
 ```
 
-This works offline with the included raw archives and regenerates the analysis, five green charts, and computed slide inputs. Charts read the result CSVs rather than embedded numerical arrays.
+This works offline with the included raw archives and regenerates the analysis, five charts, and computed slide inputs. Charts read the result CSVs rather than embedded numerical arrays.
 
 To skip raw reconstruction:
 
@@ -83,8 +83,6 @@ The optional slide source uses LaTeX, Beamer, and TikZ. With the required TeX pa
 ```bash
 bash scripts/build_slides.sh
 ```
-
-LaTeX is unnecessary for running the analysis or viewing the existing PDF.
 
 ## Repository structure
 
